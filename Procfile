@@ -1,2 +1,2 @@
-web: gunicorn -b 127.0.0.1:8000 newstart:app --log-file=-
+web: gunicorn newstart:app --log-file=-
 
