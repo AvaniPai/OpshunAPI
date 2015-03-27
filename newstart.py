@@ -7,6 +7,6 @@ app = Flask(__name__)
 def hello():
 	return "Hello World!This is Avani Speaking!"
 @app.route('/<username>')
-def specialized():
+def specialized(username):
 	return "I love you {}!".format(username)
 
