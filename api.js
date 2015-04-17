@@ -68,6 +68,8 @@ app.get('/form', function(req, res) {
 
 app.post('/signup', function(req, res) {
     // Grab data from http request
+
+    var results = [];
     var newuser = req.body.newuser;
     var newpass = req.body.newpass;
     
