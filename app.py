@@ -34,6 +34,6 @@ def signingup():
 			db.session.commit()
 		except:
 			errors.append("unable to add item to databse.")
-	return render_template('login.html'
+	return render_template('login.html')
 
 
