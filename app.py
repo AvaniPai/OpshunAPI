@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, render_template
+from flask import Flask, jsonify, request, render_template, session
 from flask.ext.sqlalchemy import SQLAlchemy
 import os
 
@@ -19,10 +19,19 @@ def specialized(username):
 	return "Hello {}!".format(username)
 @app.route('/login', methods=['GET','POST'])
 def signingup():
+	errors = []
+	results= {}
 	if request.method == "POST":
-		person = request.form['email']
-		password = requst.form['password']
-		print(person)
+		email = request.form['email']
+		password = request.form['newpass']
+		foundAt = email.index('@')
+		user = email[:foundAt]
+		try:
+			newUser = User(username=user, email=email, password=password)
+			db.session.add(newUser)
+			db.session.commit()
+		except:
+			errors.append("unable to add item to databse.")
 	return render_template('login.html')
 
 
