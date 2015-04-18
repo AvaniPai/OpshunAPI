@@ -5,6 +5,7 @@ import os
 from app import app, db
 app.config.from_object('config')
 
+from models import *
 migrate = Migrate(app, db)
 manager = Manager(app)
 
