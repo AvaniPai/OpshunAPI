@@ -1,4 +1,4 @@
-from flask import Flask
+rom flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 import os
 
@@ -14,5 +14,4 @@ def hello():
 @app.route('/<username>')
 def specialized(username):
 	return "I love you {}!".format(username)
-
 
