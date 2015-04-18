@@ -1,4 +1,6 @@
 from flask import Flask, jsonify, request, render_template, session
+from flask import Flask
+from flask import Flask, jsonify, request, render_template
 from flask.ext.sqlalchemy import SQLAlchemy
 import os
 
@@ -32,8 +34,7 @@ def signingup():
 			db.session.commit()
 		except:
 			errors.append("unable to add item to databse.")
-	return render_template('login.html')
-
+	return render_template('login.html'
 
 if __name__ == '__main__':
 	app.run(debug=True)
