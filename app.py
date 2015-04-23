@@ -1,8 +1,7 @@
 from flask import Flask, jsonify, request, render_template, session
-from flask import Flask
-from flask import Flask, jsonify, request, render_template
 from flask.ext.sqlalchemy import SQLAlchemy
 import os
+import json
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -34,7 +33,13 @@ def signingup():
 		except:
 			errors.append("unable to add item to databse.")
 	return render_template('login.html')
-
+@app.route('/android', methods=['POST'])
+def make_connection():
+	if not request.json:
+		abort(400)
+	else:
+		email = request.json['email']
+		return email
 if __name__ == '__main__':
 	app.run(debug=True)
 
