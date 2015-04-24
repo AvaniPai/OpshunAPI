@@ -32,10 +32,10 @@ def signingup():
 
 @app.route('/android', methods=['GET','POST'])
 def make_connection():
-	if request.headers['Content-Type'] == "application/json":
-		username = str(request.json['username'])
-		password = str(request.json['password'])
-		email = str(request.json['email'])
+	data = request.get_json(force=True)
+	email = json.get('email', '')
+	password = json.get('password', '')
+	username = json.get('username', '')
 	return username
 
 if __name__ == '__main__':
