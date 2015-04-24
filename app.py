@@ -30,7 +30,7 @@ def signingup():
 			errors.append("unable to add item to databse.")
 	return render_template('login.html')
 
-@app.route('/android', methods=['GET','POST'])
+@app.route('/android', methods=['POST'])
 def make_connection():
 	data = request.get_json(force=True)
 	email = json.get('email', '')
