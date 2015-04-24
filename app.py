@@ -13,10 +13,6 @@ from models import *
 def hello():
 	return "Welcome to Opshun!"
 
-@app.route('/<username>')
-def specialized(username):
-	return "Hello {}!".format(username)
-
 @app.route('/login', methods=['GET','POST'])
 def signingup():
 	errors = []
