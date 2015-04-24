@@ -31,11 +31,9 @@ def signingup():
 	return render_template('login.html')
 @app.route('/android', methods=['GET','POST'])
 def make_connection():
-	if not request.json:
-		abort(400)
-	else:
+	if request.method=='POST':
 		name = request.json['name']
-		return email
+		return name
 
 if __name__ == '__main__':
 	app.run(debug=True)
