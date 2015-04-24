@@ -38,7 +38,7 @@ def make_connection():
 	if not request.json:
 		abort(400)
 	else:
-		email = request.json['email']
+		name = request.json['name']
 		return email
 if __name__ == '__main__':
 	app.run(debug=True)
