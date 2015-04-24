@@ -32,9 +32,8 @@ def signingup():
 
 @app.route('/android', methods=['GET','POST'])
 def make_connection():
-	if request.method=='POST':
-		data = request.get_json(force=True)
-		return data
+	data = request.json(force=True)
+	return data
 
 if __name__ == '__main__':
 	app.run(debug=True)
