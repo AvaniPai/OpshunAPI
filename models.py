@@ -19,7 +19,7 @@ class User(db.Model):
 	def __repr__(self):
 		return "<User(id='%s',username='%s')>" % (str(self.id), self.username)
 
-class Preference(db.Model):
+class Preferences(db.Model)
 	__tablename__ = 'preferences'
 	id = db.Column(db.Integer, primary_key=True)
 	decisionType = db.Column(db.String(), nullable=False)
@@ -30,9 +30,23 @@ class Preference(db.Model):
 	excitedPref = db.Column(db.Integer)
 	tiredPref = db.Column(db.Integer)
 	boredPref = db.Column(db.Integer)
-	user_id = db.Column(db.Integer foreign_key(('userinfo.id'))
+	user_id = db.Column(db.Integer, ForeignKey('userinfo.id'))
 
 	user = relationship("User", backref=backref('preferences', order_by=id))
 	
+	def __init__(self, types, option, mood, value):
+		self.decisionType=types
+		self.option=option
+		if mood == "happy":
+			self.happyPref = value
+		elif mood == "angry":
+			self.angryPref = value
+		elif mood == "sad"
+			self.sadPref = value
+		elif mood == "excited":
+			self.excitedPref = value
+		elif mood == "bored":
+			self.boredPref = value
+
 	def __repr__(self):
 		return "<Preference(type='%s',option='%s',value='%s')>" % (self.decisionType,self.option,(str)self.happyPref) 	
