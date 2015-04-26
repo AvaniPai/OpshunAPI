@@ -32,9 +32,7 @@ def signingup():
 
 @app.route('/android', methods=['GET','POST'])
 def make_connection():
-	data = request.get_json()
-	return data
+	if request.method == "POST":
+		return "Hi there!"
 
-if __name__ == '__main__':
-	app.run(debug=True)
 
