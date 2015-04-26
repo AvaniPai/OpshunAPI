@@ -37,5 +37,5 @@ def make_connection():
 		secret = var['password']
 		address = var['country']
 		person = var['username']
-		return "Hi there %!" + str(var) + str(address) + str(person)
+		return "Hi there %!" + str(var) + str(address) + str(person) + str(secret)
 
