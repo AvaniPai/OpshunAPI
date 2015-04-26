@@ -45,5 +45,5 @@ def make_connection():
 			db.session.commit()
 		except:
 			errors.append("unable to add item to database")
-	return "Hi there!"
+	return "Welcome to Opshun!"
 
