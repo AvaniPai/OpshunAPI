@@ -30,13 +30,13 @@ def signingup():
 			errors.append("unable to add item to databse.")
 	return render_template('login.html')
 
-@app.route('/android', methods=['GET','POST'])
+@app.route('/register', methods=['GET','POST'])
 def make_connection():
 	errors = []
 	if request.method == "POST":
 		var = request.get_json(force=True)
 		secret = var['password']
-		address = var['country']
+		address = var['email']
 		at = address.index('@')
 		person = address[:at]
 		try:
