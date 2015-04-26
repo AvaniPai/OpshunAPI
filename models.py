@@ -34,4 +34,5 @@ class Preference(db.Model):
 
 	user = relationship("User", backref=backref('preferences', order_by=id))
 	
-	
+	def __repr__(self):
+		return "<Preference(type='%s',option='%s',value='%s')>" % (self.decisionType,self.option,(str)self.happyPref) 	
