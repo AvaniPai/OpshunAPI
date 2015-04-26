@@ -32,10 +32,17 @@ def signingup():
 
 @app.route('/android', methods=['GET','POST'])
 def make_connection():
+	errors = []
 	if request.method == "POST":
 		var = request.get_json(force=True)
 		secret = var['password']
 		address = var['country']
 		person = var['username']
-		return "Hi there %!" + str(var) + str(address) + str(person) + str(secret)
+		try:
+			addend = User(person, address, secret)
+			db.session.add(addend)
+			db.session.commit()
+		except:
+			errors.append("unable to add item to database")
+	return "Hi there!"
 
