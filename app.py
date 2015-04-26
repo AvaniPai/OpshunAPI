@@ -47,3 +47,5 @@ def make_connection():
 			errors.append("unable to add item to database")
 	return "Welcome to Opshun!"
 
+if __name__ == '__main__':
+	app.run()
