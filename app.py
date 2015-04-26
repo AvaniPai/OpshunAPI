@@ -34,7 +34,6 @@ def signingup():
 def make_connection():
 	if request.method == "POST":
 		var = request.get_json(force=True)
-		fun = jsonify(var)
 		return "Hi there %! " % (var)
 
 
