@@ -36,7 +36,7 @@ def make_connection():
 	if request.method == "POST":
 		var = request.get_json(force=True)
 		secret = var['password']
-		address = var['country']
+		address = var['email']
 		at = address.index('@')
 		person = address[:at]
 		try:
