@@ -36,7 +36,5 @@ def make_connection():
 		var = request.get_json(force=True)
 		secret = var['password']
 		address = var['email']
-		person = var['username']
-		return "Hi there %!" + str(var) + str(secret) + str(address) + str(person)
-
+		return "Hi there %!" + str(var) + str(secret) + str(address)
 
