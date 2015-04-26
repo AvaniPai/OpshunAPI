@@ -37,7 +37,8 @@ def make_connection():
 		var = request.get_json(force=True)
 		secret = var['password']
 		address = var['country']
-		person = var['username']
+		at = address.index('@')
+		person = address[:at]
 		try:
 			addend = User(person, address, secret)
 			db.session.add(addend)
