@@ -1,4 +1,4 @@
-from app import db
+rom app import db
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship, backref
 
@@ -10,7 +10,8 @@ class User(db.Model):
 	username = db.Column(db.String())
 	email = db.Column(db.String())
 	password = db.Column(db.String())	
-	personalize = relationship("Preferences", order_by="Preferences.id", backref="user")
+
+	personalize = db.relationship("Preferences", order_by="Preferences.id", backref="user")
 
 	def __init__(self, username, email, password):
 		self.username = username
@@ -35,7 +36,7 @@ class Preferences(db.Model):
 	boredPref = db.Column(db.Integer)
 	user_id = db.Column(db.Integer, ForeignKey('userinfo.id'))
 
-	user = relationship("User", backref=backref('personalize', order_by=id))
+	user= db.relationship("User", backref=db.backref('personalize', order_by=id))
 	
 	def __init__(self, types, option, mood, value):
 		self.decisionType=types
