@@ -13,21 +13,17 @@ from models import *
 def hello():
 	return "Welcome to Opshun!"
 
-@app.route('/login', methods=['GET','POST'])
+@app.route('/test', methods=['GET','POST'])
 def signingup():
 	errors = []
 	results= {}
 	if request.method == "POST":
-		email = request.form['email']
+		testEmail = request.form['email']
 		password = request.form['newpass']
 		foundAt = email.index('@')
 		user = email[:foundAt]
-		try:
-			newUser = User(user, email, password)
-			db.session.add(newUser)
-			db.session.commit()
-		except:
-			errors.append("unable to add item to databse.")
+		found = User.query.filter_by(email=testEmail)
+		return str(found)
 	return render_template('login.html')
 
 @app.route('/register', methods=['GET','POST'])
@@ -47,4 +43,14 @@ def make_connection():
 			errors.append("unable to add item to database")
 	return "Welcome to Opshun!"
 
+@app.route('/login', methods=['GET','POST'])
+def login():
+	if request.method == "POST":
+			var = request.get_json(force=True)
+			loginEmail = var['email']
+			password = var['password']
+			found = User.query.filter_by(email=loginEmail)
+			return str(found)
 
+if __name__ == '__main__':
+	app.run()
