@@ -11,8 +11,6 @@ class User(db.Model):
 	email = db.Column(db.String())
 	password = db.Column(db.String())	
 
-	personalize = db.relationship("Preferences", order_by="Preferences.id", backref="user")
-
 	def __init__(self, username, email, password):
 		self.username = username
 		self.email = email
@@ -34,7 +32,7 @@ class Preferences(db.Model):
 	excitedPref = db.Column(db.Integer)
 	tiredPref = db.Column(db.Integer)
 	boredPref = db.Column(db.Integer)
-	user_id = db.Column(db.Integer, ForeignKey('userinfo.id'))
+	user_id = db.Column(db.Integer, db.ForeignKey('userinfo.id'))
 
 	user= db.relationship("User", backref=db.backref('personalize', order_by=id))
 	
