@@ -38,7 +38,7 @@ def make_connection():
 		email = var['email']
 		at = email.index('@')
 		user = email[:at]
-		found = db.sesssion.query(User)
+		#found = db.sesssion.query(User)
 		#exists = [entry for entry in found if entry.username == user]
 		#if(exists == []):
 			#newUser = User(user, email, password)
