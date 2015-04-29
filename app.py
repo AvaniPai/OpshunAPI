@@ -44,8 +44,6 @@ def make_connection():
 			newUser = User(user, email, password)
 			db.session.add(addend)
 			db.session.commit()
-		else:
-			return "This user already exists. Please select another email."
 	return "Welcome to Opshun!"
 
 @app.route('/login', methods=['GET','POST'])
