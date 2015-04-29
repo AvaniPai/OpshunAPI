@@ -42,7 +42,7 @@ def make_connection():
 		exists = [entry for entry in found if entry.username == user]
 		if(exists == []):
 			newUser = User(user, email, password)
-			db.session.add(addend)
+			db.session.add(newUser)
 			db.session.commit()
 	return "Welcome to Opshun!"
 
