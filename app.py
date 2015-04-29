@@ -20,10 +20,13 @@ def signingup():
 	if request.method == "POST":
 		testEmail = request.form['email']
 		password = request.form['newpass']
-		foundAt = email.index('@')
-		user = email[:foundAt]
-		found = User.query.filter_by(email=testEmail)
-		return str(found)
+		foundAt = testEmail.index('@')
+		found = db.session.query(User)
+		exists = [entry for entry in found if entry.username == testEmail[:foundAt]]
+		if(exists == []):
+			newUser = User(testEmail[:foundAt], testEmail, password)
+			db.session.add(newUser)
+			db.session.commit()
 	return render_template('login.html')
 
 @app.route('/register', methods=['GET','POST'])
@@ -31,16 +34,18 @@ def make_connection():
 	errors = []
 	if request.method == "POST":
 		var = request.get_json(force=True)
-		secret = var['password']
-		address = var['email']
+		password = var['password']
+		email = var['email']
 		at = address.index('@')
-		person = address[:at]
-		try:
-			addend = User(person, address, secret)
+		user = email[:at]
+		found = db.sesssion.query(User)
+		exists = [entry for entry in found if entry.username == user]
+		if(exists == []):
+			newUser = User(user, email, password)
 			db.session.add(addend)
 			db.session.commit()
-		except:
-			errors.append("unable to add item to database")
+		else:
+			return "This user already exists. Please select another email."
 	return "Welcome to Opshun!"
 
 @app.route('/login', methods=['GET','POST'])
