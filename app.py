@@ -38,12 +38,12 @@ def make_connection():
 		email = var['email']
 		at = email.index('@')
 		user = email[:at]
-		#found = db.sesssion.query(User)
-		#exists = [entry for entry in found if entry.username == user]
-		#if(exists == []):
-			#newUser = User(user, email, password)
-			#db.session.add(newUser)
-			#db.session.commit()
+		found = db.session.query(User)
+		exists = [entry for entry in found if entry.username == user]
+		if(exists == []):
+			newUser = User(user, email, password)
+			db.session.add(newUser)
+			db.session.commit()
 	return "Welcome to Opshun!"
 
 @app.route('/login', methods=['GET','POST'])
