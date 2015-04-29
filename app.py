@@ -36,7 +36,7 @@ def make_connection():
 		var = request.get_json(force=True)
 		password = var['password']
 		email = var['email']
-		at = address.index('@')
+		at = email.index('@')
 		user = email[:at]
 		found = db.sesssion.query(User)
 		exists = [entry for entry in found if entry.username == user]
