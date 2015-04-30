@@ -32,6 +32,7 @@ def signingup():
 @app.route('/register', methods=['GET','POST'])
 def make_connection():
 	errors = []
+	message = ""
 	if request.method == "POST":
 		var = request.get_json(force=True)
 		password = var['password']
