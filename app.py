@@ -52,8 +52,11 @@ def login():
 			var = request.get_json(force=True)
 			loginEmail = var['email']
 			password = var['password']
-			found = User.query.filter_by(email=loginEmail)
-			return str(found)
+			search = User.query.filter_by(email=loginEmail)
+			found = [entry for entry in search if entry.email == loginEmail]
+			return "Welcome back! "
+
+
 
 if __name__ == '__main__':
 	app.run()
