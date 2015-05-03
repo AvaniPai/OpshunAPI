@@ -89,7 +89,7 @@ def make_connection():
 				db.session.add(newPref)
 			outact = dct.get_outact()
 			for m in outact:
-				newPref = Preferences("activity," m, "Outdoor", newUser.id)
+				newPref = Preferences("activity", m, "Outdoor", newUser.id)
 				db.session.add(newPref)
 			nightact = dct.get_nightact()
 			for n in nightact:
@@ -103,7 +103,7 @@ def make_connection():
 			for k in clothes:
 				newPref = Preferences("clothes", k, "Clothing", newUser.id)
 				db.session.add(newPref)
-			db.session.commit()
+			#db.session.commit()
 			message = "Welcome to Opshun!"
 		else:
 			message = "This user already exists. Please enter a different email."
