@@ -46,6 +46,7 @@ def make_connection():
 		if(exists == []):
 			newUser = User(user, email, password)
 			db.session.add(newUser)
+			db.session.commit()
 			dct = init_pref.Dictionaries()
 			amfoods = dct.get_amfoods()
 			for i in amfoods:
@@ -79,7 +80,6 @@ def make_connection():
 			for k in clothes:
 				newPref = Preferences("clothes", k, "Clothing", newUser.id)
 				db.session.add(newPref)
-			db.session.commit()
 			message = "Welcome to Opshun!"
 		else:
 			message = "This user already exists. Please enter a different email."
