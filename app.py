@@ -122,7 +122,7 @@ def create_profile():
 				if i.characteristic == 'Asian':
 					i.happypref = asian
 			db.session.commit()
-		return "Hi you guys!"
+		return var
 
 
 
