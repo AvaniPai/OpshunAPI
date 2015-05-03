@@ -24,33 +24,40 @@ class Preferences(db.Model):
 	__tablename__ = 'preferences'
 
 	id = db.Column(db.Integer, primary_key=True)
-	decisionType = db.Column(db.String())
+	decisiontype = db.Column(db.String())
 	option= db.Column(db.String())
-	sadPref = db.Column(db.Integer)
-	happyPref = db.Column(db.Integer)
-	angryPref = db.Column(db.Integer)
-	excitedPref = db.Column(db.Integer)
-	tiredPref = db.Column(db.Integer)
-	boredPref = db.Column(db.Integer)
+	characteristic = db.Column(db.String())
+	sadpref = db.Column(db.Integer)
+	happypref = db.Column(db.Integer)
+	angrypref = db.Column(db.Integer)
+	excitedpref = db.Column(db.Integer)
+	tiredpref = db.Column(db.Integer)
+	boredpref = db.Column(db.Integer)
 	user_id = db.Column(db.Integer, db.ForeignKey('userinfo.id'))
 
 	user= db.relationship("User", backref=db.backref('personalize', order_by=id))
 	
 	def __init__(self, types, option, mood, value):
-		self.decisionType=types
+		self.decisiontype=types
 		self.option=option
 		if mood == "happy":
-			self.happyPref = value
+			self.happypref = value
 		elif mood == "angry":
-			self.angryPref = value
+			self.angrypref = value
 		elif mood == "sad":
-			self.sadPref = value
+			self.sadpref = value
 		elif mood == "excited":
-			self.excitedPref = value
+			self.excitedpref = value
 		elif mood == "bored":
-			self.boredPref = value
+			self.boredpref = value
 		elif mood == "tired":
-			self.tiredPref = value
+			self.tiredpref = value
 	
-	def __repr__(self):
-		return "<Preference(type='%s',option='%s',value='%s')>" % (self.decisionType,self.option,str(self.happyPref)) 	
+	def __init__(self, types, option, kind):
+		self.decisiontype = types
+		self.option = option
+		self.characteristic = kind
+	
+	#make sure to fix representation
+	def __repr__(self, types, option):
+		return "<Preference(type='%s',option='%s',value='%s')>" % (self.decisiontype,self.option,str(self.happypref)) 	
