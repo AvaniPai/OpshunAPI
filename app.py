@@ -125,6 +125,3 @@ def algy_test():
 	return "Suggested food %r" % opshun
 
 
-
-if __name__ == '__main__':
-	app.run()
