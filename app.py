@@ -29,7 +29,8 @@ def signingup():
 		search = db.session.query(Preferences)
 		edit = [row for row in search if row.user_id == exists[0].id]
 		for i in edit:
-			i.happypref = 5
+			if i.characteristic == 'Mexican':
+				i.happypref = 6
 			db.session.commit()
 
 	return render_template('login.html')
@@ -119,8 +120,8 @@ def create_profile():
 					i.happypref = asian
 				elif i.characteristic == "Outdoor":
 					i.happypref == 3
-				elif i.characteristic == "Mexican":
-					i.happypref == asian
+				elif i.characteristic == 'Mexican':
+					i.happypref == 5
 			db.session.commit()
 		return str(var)
 
