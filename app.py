@@ -3,6 +3,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 import algorithm 
 import os
 import json
+import init_pref
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -22,12 +23,35 @@ def signingup():
 		testEmail = request.form['email']
 		password = request.form['newpass']
 		foundAt = testEmail.index('@')
+		blah = testEmail[:foundAt]
 		found = db.session.query(User)
-		exists = [entry for entry in found if entry.username == testEmail[:foundAt]]
+		exists = [entry for entry in found if entry.username == blah]
 		if(exists == []):
-			newUser = User(testEmail[:foundAt], testEmail, password)
+			newUser = User(blah, testEmail, password)
 			db.session.add(newUser)
 			db.session.commit()
+			dct = init_pref.Dictionaries()
+			amfoods = dct.get_amfoods()
+			for i in amfoods:
+				newPref = Preferences("food", i, "American", newUser.id)
+				db.session.add(newPref)
+			asfoods = dct.get_asfoods()
+			for j in asfoods:
+				newPref = Preferences("food", j, "Asian", newUser.id)
+				db.session.add(newPref)
+			itfoods = dct.get_itfoods()
+			for k in itfoods:
+				newPref = Preferences("food", k, "Italian", newUser.id)
+				db.session.add(newPref)
+			mexfoods = dct.get_mexfoods()
+			for l in mexfoods:
+				newPref = Preferences("food", l, "Mexican", newUser.id)
+				db.session.add(newPref)
+			db.session.commit()
+		else:
+			print "Nice to see you!"
+			#message = "Welcome to Opshun!"
+			
 	return render_template('login.html')
 
 @app.route('/register', methods=['GET','POST'])
@@ -83,4 +107,4 @@ def algy_test():
 
 
 if __name__ == '__main__':
-	app.run()
+	app.run(debug=True)

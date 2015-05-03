@@ -11,6 +11,8 @@ class User(db.Model):
 	email = db.Column(db.String())
 	password = db.Column(db.String())	
 
+	personalize = db.relationship('Preferences', backref='user', lazy = 'dynamic')
+
 	def __init__(self, username, email, password):
 		self.username = username
 		self.email = email
@@ -35,28 +37,11 @@ class Preferences(db.Model):
 	boredpref = db.Column(db.Integer)
 	user_id = db.Column(db.Integer, db.ForeignKey('userinfo.id'))
 
-	user= db.relationship("User", backref=db.backref('personalize', order_by=id))
-	
-	def __init__(self, types, option, mood, value):
+	def __init__(self, types, item, kind, num):
 		self.decisiontype=types
-		self.option=option
-		if mood == "happy":
-			self.happypref = value
-		elif mood == "angry":
-			self.angrypref = value
-		elif mood == "sad":
-			self.sadpref = value
-		elif mood == "excited":
-			self.excitedpref = value
-		elif mood == "bored":
-			self.boredpref = value
-		elif mood == "tired":
-			self.tiredpref = value
-	
-	def __init__(self, types, option, kind):
-		self.decisiontype = types
-		self.option = option
-		self.characteristic = kind
+		self.option=item
+		self.characteristic=kind
+		self.user_id = num
 	
 	#make sure to fix representation
 	def __repr__(self, types, option):

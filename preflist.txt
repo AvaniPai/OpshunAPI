@@ -1,4 +1,4 @@
-Preferences(food, hamburger, American)
+Preferences("food", "hamburger", "American", 5)
 Preferences(food, barbeque, American)
 Preferences(food, waffles, American)
 Preferences(food, fried chicken, American)
