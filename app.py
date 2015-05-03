@@ -26,31 +26,7 @@ def signingup():
 		blah = testEmail[:foundAt]
 		found = db.session.query(User)
 		exists = [entry for entry in found if entry.username == blah]
-		if(exists == []):
-			newUser = User(blah, testEmail, password)
-			db.session.add(newUser)
-			db.session.commit()
-			dct = init_pref.Dictionaries()
-			amfoods = dct.get_amfoods()
-			for i in amfoods:
-				newPref = Preferences("food", i, "American", newUser.id)
-				db.session.add(newPref)
-			asfoods = dct.get_asfoods()
-			for j in asfoods:
-				newPref = Preferences("food", j, "Asian", newUser.id)
-				db.session.add(newPref)
-			itfoods = dct.get_itfoods()
-			for k in itfoods:
-				newPref = Preferences("food", k, "Italian", newUser.id)
-				db.session.add(newPref)
-			mexfoods = dct.get_mexfoods()
-			for l in mexfoods:
-				newPref = Preferences("food", l, "Mexican", newUser.id)
-				db.session.add(newPref)
-			db.session.commit()
-		else:
-			print "Nice to see you!"
-			#message = "Welcome to Opshun!"
+		
 			
 	return render_template('login.html')
 
@@ -103,7 +79,6 @@ def make_connection():
 			for k in clothes:
 				newPref = Preferences("clothes", k, "Clothing", newUser.id)
 				db.session.add(newPref)
-			#db.session.commit()
 			message = "Welcome to Opshun!"
 		else:
 			message = "This user already exists. Please enter a different email."
@@ -121,6 +96,21 @@ def login():
 			return "Welcome back! "
 
 @app.route('/profile/food', methods=['GET', 'POST'])
+def create_profile():
+		if request.method = "POST":
+			var = request.get_json(force=True)
+			email = var['email']
+			am = var['American']
+			asian = var['Asian']
+			it = var['Italian']
+			mex = var['Mexican']
+			search = db.session.query(User)
+			found = [entry for entry in search if entry.email == email]
+			num = db.session.query(User).filter_by(email=email)
+			print num
+		return "Testing, testing"
+
+
 
 @app.route('/algorithm', methods=['GET','POST'])
 def algy_test():
