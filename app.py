@@ -32,7 +32,6 @@ def signingup():
 
 @app.route('/register', methods=['GET','POST'])
 def make_connection():
-	errors = []
 	message = ""
 	if request.method == "POST":
 		var = request.get_json(force=True)
@@ -128,4 +127,4 @@ def algy_test():
 
 
 if __name__ == '__main__':
-	app.run(debug=True)
+	app.run()
