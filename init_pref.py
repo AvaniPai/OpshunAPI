@@ -1,5 +1,3 @@
-from models import *
-
 class Dictionaries(object):
 	amfoods = ['hamburger', 'casserole', 'barbeque', 'pancakes', 'tomato soup']
 	asfoods=['sushi', 'ramen', 'dimsum', 'noodles', 'pad thai', 'bibimbap']
