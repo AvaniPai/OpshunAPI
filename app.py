@@ -70,9 +70,23 @@ def make_connection():
 			newUser = User(user, email, password)
 			db.session.add(newUser)
 			db.session.commit()
-			my_file = open("preflist.txt", "r")
-			for line in my_file.readlines():
-				newUser.personalize = line
+			dct = init_pref.Dictionaries()
+			amfoods = dct.get_amfoods()
+			for i in amfoods:
+				newPref = Preferences("food", i, "American", newUser.id)
+				db.session.add(newPref)
+			asfoods = dct.get_asfoods()
+			for j in asfoods:
+				newPref = Preferences("food", j, "Asian", newUser.id)
+				db.session.add(newPref)
+			itfoods = dct.get_itfoods()
+			for k in itfoods:
+				newPref = Preferences("food", k, "Italian", newUser.id)
+				db.session.add(newPref)
+			mexfoods = dct.get_mexfoods()
+			for l in mexfoods:
+				newPref = Preferences("food", l, "Mexican", newUser.id)
+				db.session.add(newPref)
 			db.session.commit()
 			message = "Welcome to Opshun!"
 		else:
