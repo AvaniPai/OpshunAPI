@@ -118,12 +118,14 @@ def create_profile():
 					i.happypref = am
 				elif i.characteristic == 'Asian':
 					i.happypref = asian
-				elif i.characteristic == "Outdoor":
-					i.happypref == 3
-				elif i.characteristic == 'Mexican':
-					i.happypref == 5
 			db.session.commit()
-		return str(var)
+			for k in update:
+				if k.characteristic == 'Mexican':
+					i.happypref = mex
+				if k.characteristic == 'Italian':
+					i.happypref = it
+			db.session.commit()
+		return "You can do it!"
 
 
 
