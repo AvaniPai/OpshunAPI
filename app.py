@@ -28,11 +28,11 @@ def signingup():
 		found = db.session.query(User)
 		exists = [entry for entry in found if entry.username == blah]
 		search = db.session.query(Preferences)
-		edit = [row for row in search if row.user_id == exists[0].id]
-		for i in edit:
-			if i.characteristic == 'Mexican':
-				i.happypref = 6
-			db.session.commit()
+		temp = [row.happypref for row in search if row.user_id == exists[0].id]
+		for item in search:
+			if item.user_id == exists[0].id and item.sadpref >= 0:
+				temp.append(item.sadpref)
+		print temp
 
 	return render_template('login.html')
 
@@ -131,14 +131,21 @@ def create_profile():
 
 @app.route('/algorithm', methods=['GET','POST'])
 def algy_test():
-	'''remember to filter by userid'''
-	food = db.session.query(Preferences)
-	temp = [item.happypref for item in food]
-	answer = algorithm.wrapper(temp)
-	opshun = 0
-	for item in food:
-		if(item.id == (answer+1)):
-			opshun = item.option
+	if request.method == "POST":
+		var = request.get_json(force=True)
+		email = var['email']
+		search = db.session.query(User)
+		user = [entry for entry in search if entry.email == email]
+		food = db.session.query(Preferences)
+		temp = [item.happypref for item in food if item.user_id == user[0].id]
+		for item in food:
+			if item.user_id == user[0].id and item.sadpref >= 0:
+				temp.append(item.sadpref)
+		answer = algorithm.wrapper(temp)
+		opshun = 0
+		for item in food:
+			if(item.id == (answer+1)):
+				opshun = item.option
 	
 	return "Suggested food %r" % opshun
 
