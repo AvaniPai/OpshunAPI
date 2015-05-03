@@ -117,8 +117,8 @@ def create_profile():
 					i.happypref = am
 				elif i.characteristic == 'Asian':
 					i.happypref = asian
-				elif i.characteristic == "Italian":
-					i.happypref == am
+				elif i.characteristic == "Outdoor":
+					i.happypref == 3
 				elif i.characteristic == "Mexican":
 					i.happypref == asian
 			db.session.commit()
