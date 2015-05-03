@@ -96,7 +96,7 @@ def login():
 
 @app.route('/profile/food', methods=['GET', 'POST'])
 def create_profile():
-		if request.method = "POST":
+		if request.method == "POST":
 			var = request.get_json(force=True)
 			email = var['email']
 			am = var['American']
