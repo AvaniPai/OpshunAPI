@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request, render_template, session
 from flask.ext.sqlalchemy import SQLAlchemy
+import algorithm 
 import os
 import json
 
@@ -45,6 +46,10 @@ def make_connection():
 			newUser = User(user, email, password)
 			db.session.add(newUser)
 			db.session.commit()
+			my_file = open("preflist.txt", "r")
+			for line in my_file.readlines():
+				newUser.personalize = line
+			db.session.commit()
 			message = "Welcome to Opshun!"
 		else:
 			message = "This user already exists. Please enter a different email."
@@ -60,6 +65,20 @@ def login():
 			search = User.query.filter_by(email=loginEmail)
 			found = [entry for entry in search if entry.email == loginEmail]
 			return "Welcome back! "
+
+@app.route('/profile/food', methods=['GET', 'POST'])
+
+@app.route('/algorithm', methods=['GET','POST'])
+def algy_test():
+	food = db.session.query(Preferences)
+	temp = [item.happypref for item in food]
+	answer = algorithm.wrapper(temp)
+	opshun = 0
+	for item in food:
+		if(item.id == (answer+1)):
+			opshun = item.option
+	
+	return "Suggested food %r" % opshun
 
 
 
