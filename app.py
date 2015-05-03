@@ -113,16 +113,16 @@ def create_profile():
 			peruse = db.session.query(Preferences)
 			update = [row for row in peruse if row.user_id == found[0].id]
 			for i in update:
-				if i.characteristic == 'American':
-					i.happypref = am
-				if i.characteristic == 'Asian':
-					i.happypref = asian
 				if i.characteristic == 'Italian':
 					i.happypref == it
 				if i.characteristic == 'Mexican':
 					i.happypref == mex
+				if i.characteristic == 'American':
+					i.happypref = am
+				if i.characteristic == 'Asian':
+					i.happypref = asian
 			db.session.commit()
-		return "Testing, testing"
+		return "Hi you guys!"
 
 
 
