@@ -26,44 +26,12 @@ def signingup():
 		blah = testEmail[:foundAt]
 		found = db.session.query(User)
 		exists = [entry for entry in found if entry.username == blah]
-		if(exists == []):
-			newUser = User(blah, testEmail, password)
-			db.session.add(newUser)
+		search = db.session.query(Preferences)
+		edit = [row for row in search if row.user_id == exists[0].id]
+		for i in edit:
+			i.happypref = 5
 			db.session.commit()
-			dct = init_pref.Dictionaries()
-			amfoods = dct.get_amfoods()
-			for i in amfoods:
-				newPref = Preferences("food", i, "American", newUser.id)
-				db.session.add(newPref)
-			asfoods = dct.get_asfoods()
-			for j in asfoods:
-				newPref = Preferences("food", j, "Asian", newUser.id)
-				db.session.add(newPref)
-			itfoods = dct.get_itfoods()
-			for k in itfoods:
-				newPref = Preferences("food", k, "Italian", newUser.id)
-				db.session.add(newPref)
-			mexfoods = dct.get_mexfoods()
-			for l in mexfoods:
-				newPref = Preferences("food", l, "Mexican", newUser.id)
-				db.session.add(newPref)
-			outact = dct.get_outact()
-			for m in outact:
-				newPref = Preferences("activity", m, "Outdoor", newUser.id)
-				db.session.add(newPref)
-			nightact = dct.get_nightact()
-			for n in nightact:
-				newPref = Preferences("activity", n, "Night", newUser.id)
-				db.session.add(newPref)
-			miscact = dct.get_miscact()	
-			for o in miscact:
-				newPref = Preferences("activity", o, "Miscellaneous", newUser.id)
-				db.session.add(newPref)
-			clothes = dct.get_clothes()
-			for k in clothes:
-				newPref = Preferences("clothes", k, "Clothing", newUser.id)
-				db.session.add(newPref)		
-			db.session.commit()
+
 	return render_template('login.html')
 
 @app.route('/register', methods=['GET','POST'])
@@ -142,8 +110,18 @@ def create_profile():
 			mex = var['Mexican']
 			search = db.session.query(User)
 			found = [entry for entry in search if entry.email == email]
-			num = db.session.query(User).filter_by(email=email)
-			print num
+			peruse = db.session.query(Preferences)
+			update = [row for row in peruse if row.user_id == found[0].id]
+			for i in update:
+				if i.characteristic == 'American':
+					i.happypref = am
+				if i.characteristic == 'Asian':
+					i.happypref = asian
+				if i.characteristic == 'Italian':
+					i.happypref == it
+				if i.characteristic == 'Mexican':
+					i.happypref == mex
+			db.session.commit()
 		return "Testing, testing"
 
 

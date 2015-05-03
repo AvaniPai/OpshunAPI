@@ -19,7 +19,7 @@ class User(db.Model):
 		self.password = password
 
 	def __repr__(self):
-		return "<User(id='%s',username='%s')>" % (str(self.id), self.username)
+		return "User (id='%s',username='%s')" % (str(self.id), self.username)
 
 class Preferences(db.Model):
 
@@ -44,5 +44,5 @@ class Preferences(db.Model):
 		self.user_id = num
 	
 	#make sure to fix representation
-	def __repr__(self, types, option):
+	def __repr__(self):
 		return "<Preference(type='%s',option='%s',value='%s')>" % (self.decisiontype,self.option,str(self.happypref)) 	
