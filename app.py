@@ -87,6 +87,22 @@ def make_connection():
 			for l in mexfoods:
 				newPref = Preferences("food", l, "Mexican", newUser.id)
 				db.session.add(newPref)
+			outact = dct.get_outact()
+			for m in outact:
+				newPref = Preferences("activity," m, "Outdoor", newUser.id)
+				db.session.add(newPref)
+			nightact = dct.get_nightact()
+			for n in nightact:
+				newPref = Preferences("activity", n, "Night", newUser.id)
+				db.session.add(newPref)
+			miscact = dct.get_miscact()	
+			for o in miscact:
+				newPref = Preferences("activity", o, "Miscellaneous", newUser.id)
+				db.session.add(newPref)
+			clothes = dct.get_clothes()
+			for k in clothes:
+				newPref = Preferences("clothes", k, "Clothing", newUser.id)
+				db.session.add(newPref)
 			db.session.commit()
 			message = "Welcome to Opshun!"
 		else:
@@ -108,6 +124,7 @@ def login():
 
 @app.route('/algorithm', methods=['GET','POST'])
 def algy_test():
+	'''remember to filter by userid'''
 	food = db.session.query(Preferences)
 	temp = [item.happypref for item in food]
 	answer = algorithm.wrapper(temp)
