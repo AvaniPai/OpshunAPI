@@ -4,6 +4,7 @@ import algorithm
 import os
 import json
 import init_pref
+from sqlalchemy import update
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -118,13 +119,12 @@ def create_profile():
 					i.happypref = am
 				elif i.characteristic == 'Asian':
 					i.happypref = asian
+				elif i.characteristic == 'Mexican':
+					i.sadpref = mex
+				elif i.characteristic == 'Italian':
+					i.sadpref = it
 			db.session.commit()
-			for k in update:
-				if k.characteristic == 'Mexican':
-					i.happypref = mex
-				if k.characteristic == 'Italian':
-					i.happypref = it
-			db.session.commit()
+	
 		return "You can do it!"
 
 
