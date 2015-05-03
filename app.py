@@ -147,7 +147,7 @@ def algy_test():
 			if(item.id == (answer+1)):
 				opshun = item.option
 	
-	return "Suggested food %r" % opshun
+	return opshun
 
 if __name__ == '__main__':
 	app.run(debug=True)
