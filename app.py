@@ -24,8 +24,10 @@ def signingup():
 		password = request.form['newpass']
 		foundAt = testEmail.index('@')
 		blah = testEmail[:foundAt]
-		found = db.session.query(User)
-		exists = [entry for entry in found if entry.username == blah]
+		search = db.session.query(User)
+		#found = [entry for entry in search if entry.email == email]
+		num = db.session.query(User).filter_by(email=testEmail)
+		print num
 		
 			
 	return render_template('login.html')
@@ -44,7 +46,6 @@ def make_connection():
 		if(exists == []):
 			newUser = User(user, email, password)
 			db.session.add(newUser)
-			db.session.commit()
 			dct = init_pref.Dictionaries()
 			amfoods = dct.get_amfoods()
 			for i in amfoods:
@@ -78,6 +79,7 @@ def make_connection():
 			for k in clothes:
 				newPref = Preferences("clothes", k, "Clothing", newUser.id)
 				db.session.add(newPref)
+			db.session.commit()
 			message = "Welcome to Opshun!"
 		else:
 			message = "This user already exists. Please enter a different email."
@@ -124,4 +126,5 @@ def algy_test():
 	
 	return "Suggested food %r" % opshun
 
-
+if __name__ == '__main__':
+	app.run(debug=True)
