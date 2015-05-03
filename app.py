@@ -24,12 +24,46 @@ def signingup():
 		password = request.form['newpass']
 		foundAt = testEmail.index('@')
 		blah = testEmail[:foundAt]
-		search = db.session.query(User)
-		#found = [entry for entry in search if entry.email == email]
-		num = db.session.query(User).filter_by(email=testEmail)
-		print num
-		
-			
+		found = db.session.query(User)
+		exists = [entry for entry in found if entry.username == blah]
+		if(exists == []):
+			newUser = User(blah, testEmail, password)
+			db.session.add(newUser)
+			db.session.commit()
+			dct = init_pref.Dictionaries()
+			amfoods = dct.get_amfoods()
+			for i in amfoods:
+				newPref = Preferences("food", i, "American", newUser.id)
+				db.session.add(newPref)
+			asfoods = dct.get_asfoods()
+			for j in asfoods:
+				newPref = Preferences("food", j, "Asian", newUser.id)
+				db.session.add(newPref)
+			itfoods = dct.get_itfoods()
+			for k in itfoods:
+				newPref = Preferences("food", k, "Italian", newUser.id)
+				db.session.add(newPref)
+			mexfoods = dct.get_mexfoods()
+			for l in mexfoods:
+				newPref = Preferences("food", l, "Mexican", newUser.id)
+				db.session.add(newPref)
+			outact = dct.get_outact()
+			for m in outact:
+				newPref = Preferences("activity", m, "Outdoor", newUser.id)
+				db.session.add(newPref)
+			nightact = dct.get_nightact()
+			for n in nightact:
+				newPref = Preferences("activity", n, "Night", newUser.id)
+				db.session.add(newPref)
+			miscact = dct.get_miscact()	
+			for o in miscact:
+				newPref = Preferences("activity", o, "Miscellaneous", newUser.id)
+				db.session.add(newPref)
+			clothes = dct.get_clothes()
+			for k in clothes:
+				newPref = Preferences("clothes", k, "Clothing", newUser.id)
+				db.session.add(newPref)		
+			db.session.commit()
 	return render_template('login.html')
 
 @app.route('/register', methods=['GET','POST'])
@@ -80,6 +114,7 @@ def make_connection():
 			for k in clothes:
 				newPref = Preferences("clothes", k, "Clothing", newUser.id)
 				db.session.add(newPref)
+			db.session.commit()
 			message = "Welcome to Opshun!"
 		else:
 			message = "This user already exists. Please enter a different email."
