@@ -142,12 +142,12 @@ def algy_test():
 			if item.user_id == user[0].id and item.sadpref >= 0:
 				temp.append(item.sadpref)
 		answer = algorithm.wrapper(temp)
-		opshun = 0
+		opshun = ""
 		for item in food:
 			if(item.id == (answer+1)):
 				opshun = item.option
 	
-	return opshun
+	return str(opshun)
 
 if __name__ == '__main__':
 	app.run(debug=True)
