@@ -97,7 +97,7 @@ def login():
 			var = request.get_json(force=True)
 			loginEmail = var['email']
 			password = var['password']
-			search = User.query.filter_by(email=loginEmail)
+			search = db.session.query(User)
 			found = [entry for entry in search if entry.email == loginEmail]
 			return "Welcome back! "
 
