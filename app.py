@@ -35,7 +35,7 @@ def signingup():
 		answer = algorithm.wrapper(temp)
 		print answer
 		doodle = db.session.query(Preferences).filter_by(user_id=exists[0].id)
-		print doodle[answer+1].option
+		print doodle[answer].option
 	return render_template('login.html')
 
 @app.route('/register', methods=['GET','POST'])
@@ -145,7 +145,7 @@ def algy_test():
 				temp.append(item.sadpref)
 		answer = algorithm.wrapper(temp)
 		values = db.session.query(Preferences).filter_by(user_id=user[0].id)
-		opshun = values[answer+1].option
+		opshun = values[answer].option
 	
 	return opshun
 
