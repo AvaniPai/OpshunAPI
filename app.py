@@ -145,8 +145,8 @@ def algy_test():
 			if dish.user_id == user[0].id and dish.sadpref >= 0:
 				temp.append(dish.sadpref)
 		answer = algorithm.wrapper(temp)
-		values = [row.option for row in search if row.user_id==user[0].id and row.happypref >=0]
-		for thing in search:
+		values = [row.option for row in food if row.user_id==user[0].id and row.happypref >=0]
+		for thing in food:
 			if thing.user_id==user[0].id and thing.sadpref>=0:
 				values.append(thing.option)
 		result = values[answer]
@@ -155,4 +155,4 @@ def algy_test():
 	return result
 
 if __name__ == '__main__':
-	app.run(debug=True)
+	app.run()
