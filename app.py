@@ -147,7 +147,7 @@ def algy_test():
 		values = db.session.query(Preferences).filter_by(user_id=user[0].id)
 		opshun = values[answer].option
 	
-	return opshun
+	return str(opshun)
 
 if __name__ == '__main__':
 	app.run()
