@@ -32,8 +32,10 @@ def signingup():
 		for item in search:
 			if item.user_id == exists[0].id and item.sadpref >= 0:
 				temp.append(item.sadpref)
-		print temp
-
+		answer = algorithm.wrapper(temp)
+		print answer
+		doodle = db.session.query(Preferences).filter_by(user_id=exists[0].id)
+		print doodle[answer+1].option
 	return render_template('login.html')
 
 @app.route('/register', methods=['GET','POST'])
@@ -142,12 +144,10 @@ def algy_test():
 			if item.user_id == user[0].id and item.sadpref >= 0:
 				temp.append(item.sadpref)
 		answer = algorithm.wrapper(temp)
-		opshun = ""
-		for item in food:
-			if(item.id == (answer+1)):
-				opshun = item.option
+		values = db.session.query(Preferences).filter_by(user_id=user[0].id)
+		opshun = values[answer+1].option
 	
-	return str(opshun)
+	return opshun
 
 if __name__ == '__main__':
 	app.run(debug=True)
