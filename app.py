@@ -147,7 +147,8 @@ def algy_test():
 		answer = algorithm.wrapper(temp)
 		values = db.session.query(Preferences).filter_by(user_id=user[0].id)
 		result = values[answer].option
-	
+	else:
+		result = "sad"
 	return result
 
 if __name__ == '__main__':
