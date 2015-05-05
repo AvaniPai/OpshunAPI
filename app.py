@@ -133,6 +133,7 @@ def create_profile():
 
 @app.route('/algorithm', methods=['GET','POST'])
 def algy_test():
+	result = ""
 	if request.method == "POST":
 		var = request.get_json(force=True)
 		email = var['email']
@@ -146,9 +147,8 @@ def algy_test():
 		answer = algorithm.wrapper(temp)
 		values = db.session.query(Preferences).filter_by(user_id=user[0].id)
 		result = values[answer].option
-		return result
-	else: 
-		return "Something is wrong"
+	
+	return result
 
 if __name__ == '__main__':
 	app.run()
