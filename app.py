@@ -139,17 +139,7 @@ def algy_test():
 		email = var['email']
 		search = db.session.query(User)
 		user = [entry for entry in search if entry.email == email]
-		food = db.session.query(Preferences)
-		temp = [item.happypref for item in food if item.user_id == user[0].id]
-		for dish in food:
-			if dish.user_id == user[0].id and dish.sadpref >= 0:
-				temp.append(dish.sadpref)
-		answer = algorithm.wrapper(temp)
-		values = [row.option for row in food if row.user_id==user[0].id and row.happypref >=0]
-		for thing in food:
-			if thing.user_id==user[0].id and thing.sadpref>=0:
-				values.append(thing.option)
-		result = values[answer]
+		result = user.username
 	else:
 		result = "sad"
 	return result
