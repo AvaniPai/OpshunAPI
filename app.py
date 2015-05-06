@@ -142,7 +142,7 @@ def algy_test():
 		result = user.username
 	else:
 		result = "sad"
-	return result
+	return str(result)
 
 if __name__ == '__main__':
 	app.run()
