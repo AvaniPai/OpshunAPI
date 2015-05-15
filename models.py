@@ -37,10 +37,9 @@ class Preferences(db.Model):
 	boredpref = db.Column(db.Integer)
 	user_id = db.Column(db.Integer, db.ForeignKey('userinfo.id'))
 
-	def __init__(self, types, item, kind, num):
+	def __init__(self, types, item, num):
 		self.decisiontype=types
 		self.option=item
-		self.characteristic=kind
 		self.user_id = num
 	
 	#make sure to fix representation

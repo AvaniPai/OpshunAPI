@@ -21,21 +21,17 @@ def signingup():
 	errors = []
 	results= {}
 	if request.method == "POST":
-		testEmail = request.form['email']
-		password = request.form['newpass']
-		foundAt = testEmail.index('@')
-		blah = testEmail[:foundAt]
-		found = db.session.query(User)
-		exists = [entry for entry in found if entry.username == blah]
-		search = db.session.query(Preferences)
-		temp = [row.happypref for row in search if row.user_id == exists[0].id]
-		for item in search:
-			if item.user_id == exists[0].id and item.sadpref >= 0:
-				temp.append(item.sadpref)
-		answer = algorithm.wrapper(temp)
-		print answer
-		doodle = db.session.query(Preferences).filter_by(user_id=exists[0].id)
-		print doodle[answer].option
+		email = request.form['email']
+		password=request.form['newpass']
+		foundAt= email.index('@')
+		user = email[:foundAt]
+		lst = db.session.query(User)
+		exists = [i for i in lst if i.username == user]
+		lst2 = db.session.query(Preferences)
+		pref = [entry.happypref for entry in lst2 if entry.user_id == exists[0].id]
+		answer = algorithm.wrapper(pref)
+		opt = [row.option for row in lst2 if row.user_id == exists[0].id]
+		print opt[answer]	
 	return render_template('login.html')
 
 @app.route('/register', methods=['GET','POST'])
@@ -54,37 +50,9 @@ def make_connection():
 			db.session.add(newUser)
 			db.session.commit()
 			dct = init_pref.Dictionaries()
-			amfoods = dct.get_amfoods()
-			for i in amfoods:
-				newPref = Preferences("food", i, "American", newUser.id)
-				db.session.add(newPref)
-			asfoods = dct.get_asfoods()
-			for j in asfoods:
-				newPref = Preferences("food", j, "Asian", newUser.id)
-				db.session.add(newPref)
-			itfoods = dct.get_itfoods()
-			for k in itfoods:
-				newPref = Preferences("food", k, "Italian", newUser.id)
-				db.session.add(newPref)
-			mexfoods = dct.get_mexfoods()
-			for l in mexfoods:
-				newPref = Preferences("food", l, "Mexican", newUser.id)
-				db.session.add(newPref)
-			outact = dct.get_outact()
-			for m in outact:
-				newPref = Preferences("activity", m, "Outdoor", newUser.id)
-				db.session.add(newPref)
-			nightact = dct.get_nightact()
-			for n in nightact:
-				newPref = Preferences("activity", n, "Night", newUser.id)
-				db.session.add(newPref)
-			miscact = dct.get_miscact()	
-			for o in miscact:
-				newPref = Preferences("activity", o, "Miscellaneous", newUser.id)
-				db.session.add(newPref)
-			clothes = dct.get_clothes()
-			for k in clothes:
-				newPref = Preferences("clothes", k, "Clothing", newUser.id)
+			food = dct.get_foods()
+			for i in food:
+				newPref = Preferences("food", i, newUser.id)
 				db.session.add(newPref)
 			db.session.commit()
 			message = "Welcome to Opshun!"
@@ -116,17 +84,20 @@ def create_profile():
 			found = [entry for entry in search if entry.email == email]
 			peruse = db.session.query(Preferences)
 			update = [row for row in peruse if row.user_id == found[0].id]
-			for i in update:
-				if i.characteristic == 'American':
-					i.happypref = am
-				elif i.characteristic == 'Asian':
-					i.happypref = asian
-				elif i.characteristic == 'Mexican':
-					i.sadpref = mex
-				elif i.characteristic == 'Italian':
-					i.sadpref = it
+			for i, row in enumerate(update):
+				if i < 5:
+					row.happypref = am
+					row.characteristic= "American"
+				elif i >=5 and i<11:
+					row.happypref = asian
+					row.characteristic = "Asian"
+				elif i >= 11 and i<16:
+					row.happypref = it
+					row.characteristic = "Italian"
+				elif i >=16:
+					row.happypref = mex
+					row.characteristic = "Mexican"
 			db.session.commit()
-	
 		return "You can do it!"
 
 
@@ -135,14 +106,20 @@ def create_profile():
 def algy_test():
 	result = ""
 	if request.method == "POST":
-		var = request.get_json(force=True)
-		email = var['email']
-		search = db.session.query(User)
-		user = [entry for entry in search if entry.email == email]
-		result = user.username
+		email = request.form['email']
+		password = request.form['passoword']
+		foundAt = email.index('@')
+		blah = email[:foundAt]
+		found = db.session.query(User)
+		exists = [entry for entry in found if entry.username == blah]
+		search = db.session.query(Preferences)
+		temp = [row.happypref for row in search if row.user_id == exists[0].id]
+		answer = algorithm.wrapper(temp)
+		doodle = [r.option for r in search if r.user_id == exists[0].id]
+		result = doodle[answer]
 	else:
 		result = "sad"
 	return str(result)
 
 if __name__ == '__main__':
-	app.run()
+	app.run(debug=True)
