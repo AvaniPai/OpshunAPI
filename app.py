@@ -18,20 +18,17 @@ def hello():
 
 @app.route('/test', methods=['GET','POST'])
 def signingup():
-	errors = []
-	results= {}
 	if request.method == "POST":
 		email = request.form['email']
-		password=request.form['newpass']
-		foundAt= email.index('@')
-		user = email[:foundAt]
-		lst = db.session.query(User)
-		exists = [i for i in lst if i.username == user]
-		lst2 = db.session.query(Preferences)
-		pref = [entry.happypref for entry in lst2 if entry.user_id == exists[0].id]
-		answer = algorithm.wrapper(pref)
-		opt = [row.option for row in lst2 if row.user_id == exists[0].id]
-		print opt[answer]	
+		password = request.form['newpass']
+		user = email[:email.index('@')]
+		data = db.session.query(User)
+		exists = [entry for entry in exists if entry.username == user]
+		if(exists == []):
+			new = User(user, email, password)
+			db.session.add(new)
+			db.session.commit()
+			print "All done!"
 	return render_template('login.html')
 
 @app.route('/register', methods=['GET','POST'])
@@ -68,8 +65,8 @@ def login():
 			loginEmail = var['email']
 			password = var['password']
 			search = db.session.query(User)
-			found = [entry for entry in search if entry.email == loginEmail]
-			return "Welcome back! "
+			found = [entry for entry in search if entry.email == loginEmail and entry.password == password]
+			return "Welcome back! " 
 
 @app.route('/profile/food', methods=['GET', 'POST'])
 def create_profile():
