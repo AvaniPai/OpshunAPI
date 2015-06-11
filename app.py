@@ -23,7 +23,7 @@ def signingup():
 		password = request.form['newpass']
 		user = email[:email.index('@')]
 		data = db.session.query(User)
-		exists = [entry for entry in exists if entry.username == user]
+		exists = [entry for entry in data if entry.username == user]
 		if(exists == []):
 			new = User(user, email, password)
 			db.session.add(new)
